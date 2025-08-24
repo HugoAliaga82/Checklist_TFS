@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist - TFS - Magna IV</title>
+  <style>
+    :root {
+      --color-primary: #003366;
+      --color-secondary: #ff6600;
+      --color-success: #28a745;
+      --color-danger: #dc3545;
+      --color-warning: #ffc107;
+      --color-light: #f8f9fa;
+      --color-dark: #343a40;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    header {
+      background-color: var(--color-primary);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      max-width: 150px;
+      height: auto;
+      display: block;
+      margin: 0 auto 1rem auto;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .form-section {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .form-section-title {
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-secondary);
+    }
+    
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -0.5rem 1rem;
+    }
+    
+    .form-group {
+      flex: 1 0 calc(50% - 1rem);
+      margin: 0 0.5rem 1rem;
+      min-width: 250px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #444;
+    }
+    
+    input, select, textarea, button {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+    }
+    
+    .required::after {
+      content: " *";
+      color: var(--color-danger);
+    }
+    
+    .question-item {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--color-primary);
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background-color: var(--color-secondary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #e65c00;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .alert {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .category-title {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      margin: 1.5rem 0 1rem 0;
+    }
+    
+    @media (max-width: 768px) {
+      .form-group {
+        flex: 1 0 100%;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo Magna IV" class="logo">
+    <h1>Checklist Camionetas - Automatización y Control</h1>
+  </header>
+
+  <div class="container">
+    <div class="alert alert-success" id="successAlert">
+      ¡Checklist completado con éxito! No se detectaron fallas críticas.
+    </div>
+    
+    <div class="alert alert-danger" id="errorAlert">
+      Por favor, completa todos los campos obligatorios.
+    </div>
+    
+    <form id="checklistForm" action="https://formspree.io/f/mvgbpojb" method="POST">
+      <div class="card">
+        <div class="form-section">
+          <h2 class="form-section-title">Información General</h2>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="proyecto" class="required">Proyecto:</label>
+              <select id="proyecto" name="proyecto" required>
+                <option value="">Seleccionar proyecto</option>
+                <option value="M3409-31">M3409-31</option>
+                <option value="C3422-28">C3422-28</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="usuario" class="required">Nombre del Operador:</label>
+              <select id="usuario" name="usuario" required disabled>
+                <option value="">Primero selecciona un proyecto</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="unidad" class="required">Número de Unidad/Vehículo:</label>
+              <input type="text" id="unidad" name="unidad" required placeholder="Ej: CAM-023">
+            </div>
+            
+            <div class="form-group">
+              <label for="turno" class="required">Turno:</label>
+              <select id="turno" name="turno" required>
+                <option value="">Seleccionar turno</option>
+                <option value="Día">Día</option>
+                <option value="Noche">Noche</option>
+                <option value="Rotativo">Rotativo</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fecha">Fecha:</label>
+              <input type="text" id="fecha" name="fecha" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="hora">Hora:</label>
+              <input type="text" id="hora" name="hora" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-section">
+          <h3 class="category-title">SISTEMA DE SEGURIDAD Y EMERGENCIA</h3>
+          
+          <div class="question-item">
+            <label for="pregunta1" class="required">1. ¿El sensor de somnolencia está funcionando?</label>
+            <select id="pregunta1" name="pregunta1" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta2" class="required">2. ¿El extintor está operativo y con carga vigente?</label>
+            <select id="pregunta2" name="pregunta2" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta3" class="required">3. ¿El sistema de detección de gases (CO, NO2) funciona correctamente?</label>
+            <select id="pregunta3" name="pregunta3" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta4" class="required">4. ¿El equipo de respiración autónoma (ERA) está completo y en buen estado?</label>
+            <select id="pregunta4" name="pregunta4" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta5" class="required">5. ¿El botiquín de primeros auxilios está completo y vigente?</label>
+            <select id="pregunta5" name="pregunta5" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta6" class="required">6. ¿El sistema de comunicación (radio) funciona correctamente?</label>
+            <select id="pregunta6" name="pregunta6" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta7" class="required">7. ¿El balizamiento y sistema de luces de emergencia funciona correctamente?</label>
+            <select id="pregunta7" name="pregunta7" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <h3 class="category-title">SISTEMA MECÁNICO AND ELÉCTRICO</h3>
+          
+          <div class="question-item">
+            <label for="pregunta8" class="required">8. ¿Los neumáticos tienen la presión adecuada y sin daños visibles?</label>
+            <select id="pregunta8" name="pregunta8" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta9" class="required">9. ¿Funcionan correctamente todas las luces (bajas, altas, intermitentes, freno)?</label>
+            <select id="pregunta9" name="pregunta9" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta10" class="required">10. ¿Los frenos responden adecuadamente (freno de servicio y estacionamiento)?</label>
+            <select id="pregunta10" name="pregunta10" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta11" class="required">11. ¿El sistema de dirección funciona correctamente?</label>
+            <select id="pregunta11" name="pregunta11" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta12" class="required">12. ¿Niveles de fluidos (aceite motor, frenos, dirección, refrigerante) correctos?</label>
+            <select id="pregunta12" name="pregunta12" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta13" class="required">13. ¿La batería presenta corrosión en bornes y está bien sujeta?</label>
+            <select id="pregunta13" name="pregunta13" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta14" class="required">14. ¿El sistema de escape no presenta fugas ni ruidos anormales?</label>
+            <select id="pregunta14" name="pregunta14" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <h3 class="category-title">ELEMENTOS DE PROTECCIÓN PERSONAL Y SEGURIDAD</h3>
+          
+          <div class="question-item">
+            <label for="pregunta15" class="required">15. ¿El cinturón de seguridad funciona correctamente?</label>
+            <select id="pregunta15" name="pregunta15" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta16" class="required">16. ¿Los espejos retrovisores están en buen estado y bien ajustados?</label>
+            <select id="pregunta16" name="pregunta16" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta17" class="required">17. ¿El parabrisas y limpiaparabrisas están en buen estado?</label>
+            <select id="pregunta17" name="pregunta17" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta18" class="required">18. ¿El sistema de ventilación/calefacción funciona correctamente?</label>
+            <select id="pregunta18" name="pregunta18" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta19" class="required">19. ¿El tacógrafo (si aplica) funciona correctamente?</label>
+            <select id="pregunta19" name="pregunta19" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta20" class="required">20. ¿La documentación del vehículo está en regla (seguro, revisión técnica, permiso de circulación)?</label>
+            <select id="pregunta20" name="pregunta20" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <h3 class="category-title">EQUIPAMIENTO ESPECÍFICO MINERÍA SUBTERRÁNEA</h3>
+          
+          <div class="question-item">
+            <label for="pregunta21" class="required">21. ¿El sistema de protección contra incendios (si existe) está operativo?</label>
+            <select id="pregunta21" name="pregunta21" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta22" class="required">22. ¿El sistema de captación de polvo (si aplica) funciona correctamente?</label>
+            <select id="pregunta22" name="pregunta22" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta23" class="required">23. ¿El sistema de monitoreo continuo de gases está calibrado y funcionando?</label>
+            <select id="pregunta23" name="pregunta23" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta24" class="required">24. ¿La estructura de protección contra vuelcos (ROPS) está en buen estado?</label>
+            <select id="pregunta24" name="pregunta24" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          
+          <div class="question-item">
+            <label for="pregunta25" class="required">25. ¿El sistema de alerta de retroceso funciona correctamente?</label>
+            <select id="pregunta25" name="pregunta25" required>
+              <option value="">Seleccionar</option>
+              <option value="Bien">Bien</option>
+              <option value="Mal">Mal</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-section">
+          <label for="observaciones">Observaciones adicionales:</label>
+          <textarea id="observaciones" name="observaciones" placeholder="Escribe aquí cualquier observación adicional, detalle de fallas encontradas o comentarios..."></textarea>
+        </div>
+        
+        <!-- Campos ocultos para enviar solo la información relevante -->
+        <input type="hidden" id="alerta" name="alerta">
+        <input type="hidden" id="infoGeneral" name="infoGeneral">
+        
+        <div class="action-buttons">
+          <button type="submit" class="btn btn-primary">Enviar Checklist</button>
+          <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Actualizar fecha y hora en tiempo real
+    function actualizarFechaHora() {
+      const ahora = new Date();
+      
+      // Formatear fecha
+      const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      document.getElementById('fecha').value = ahora.toLocaleDateString('es-ES', opcionesFecha);
+      
+      // Formatear hora
+      const opcionesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      document.getElementById('hora').value = ahora.toLocaleTimeString('es-ES', opcionesHora);
+    }
+    
+    // Actualizar inmediatamente y luego cada segundo
+    actualizarFechaHora();
+    setInterval(actualizarFechaHora, 1000);
+    
+    // Cambiar opciones de usuario según el proyecto seleccionado
+    document.getElementById('proyecto').addEventListener('change', function() {
+      const proyecto = this.value;
+      const usuarioSelect = document.getElementById('usuario');
+      
+      // Habilitar el selector de usuario
+      usuarioSelect.disabled = false;
+      
+      // Limpiar opciones anteriores
+      usuarioSelect.innerHTML = '';
+      
+      // Agregar opción por defecto
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'Seleccionar operador';
+      usuarioSelect.appendChild(defaultOption);
+      
+      // Agregar opciones según el proyecto
+      if (proyecto === 'C3422-28') {
+        const usuarios = [
+          'Gustavo Muñoz', 'Cristian Magne', 'Hugo Aliaga', 
+          'Victor Melero', 'Carlos Yanez', 'Sergio Meneses', 
+          'Guido', 'Maximiliano', 'Hugo Fernandez', 'Matias Painen'
+        ];
+        
+        usuarios.forEach(usuario => {
+          const option = document.createElement('option');
+          option.value = usuario;
+          option.textContent = usuario;
+          usuarioSelect.appendChild(option);
+        });
+      } else if (proyecto === 'M3409-31') {
+        const usuarios = [
+          'Jorge Carvajal', 'Mauricio Bourgade', 'Juan Gonzalez'
+        ];
+        
+        usuarios.forEach(usuario => {
+          const option = document.createElement('option');
+          option.value = usuario;
+          option.textContent = usuario;
+          usuarioSelect.appendChild(option);
+        });
+      }
+    });
+    
+    // Validación y envío del formulario
+    document.getElementById("checklistForm").addEventListener("submit", function(event) {
+      // Validar que todos los campos obligatorios estén completos
+      const requiredFields = this.querySelectorAll('[required]');
+      let formIsValid = true;
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          formIsValid = false;
+          field.style.borderColor = '#dc3545';
+        } else {
+          field.style.borderColor = '#ddd';
+        }
+      });
+      
+      if (!formIsValid) {
+        event.preventDefault();
+        document.getElementById('errorAlert').style.display = 'block';
+        window.scrollTo(0, 0);
+        return;
+      }
+      
+      // Ocultar alerta de error si está visible
+      document.getElementById('errorAlert').style.display = 'none';
+      
+      // Obtener información general
+      const proyecto = document.getElementById("proyecto").value;
+      const usuario = document.getElementById("usuario").value;
+      const unidad = document.getElementById("unidad").value;
+      const turno = document.getElementById("turno").value;
+      const fecha = document.getElementById("fecha").value;
+      const hora = document.getElementById("hora").value;
+      const observaciones = document.getElementById("observaciones").value;
+      
+      // Crear información general para el correo
+      const infoGeneralTexto = `Checklist completado por: ${usuario}
+Proyecto: ${proyecto}
+Unidad: ${unidad}
+Turno: ${turno}
+Fecha: ${fecha}
+Hora: ${hora}
+Observaciones: ${observaciones || 'Ninguna'}`;
+      
+      document.getElementById("infoGeneral").value = infoGeneralTexto;
+      
+      // Verificar si hay problemas reportados
+      let alerta = "";
+      
+      // Preguntas a verificar
+      const preguntas = [
+        { id: 'pregunta1', texto: 'sensor de somnolencia' },
+        { id: 'pregunta2', texto: 'extintor' },
+        { id: 'pregunta3', texto: 'sistema de detección de gases' },
+        { id: 'pregunta4', texto: 'equipo de respiración autónoma (ERA)' },
+        { id: 'pregunta5', texto: 'botiquín de primeros auxilios' },
+        { id: 'pregunta6', texto: 'sistema de comunicación (radio)' },
+        { id: 'pregunta7', texto: 'balizamiento y sistema de luces de emergencia' },
+        { id: 'pregunta8', texto: 'neumáticos' },
+        { id: 'pregunta9', texto: 'luces' },
+        { id: 'pregunta10', texto: 'frenos' },
+        { id: 'pregunta11', texto: 'sistema de dirección' },
+        { id: 'pregunta12', texto: 'niveles de fluidos' },
+        { id: 'pregunta13', texto: 'batería' },
+        { id: 'pregunta14', texto: 'sistema de escape' },
+        { id: 'pregunta15', texto: 'cinturón de seguridad' },
+        { id: 'pregunta16', texto: 'espejos retrovisores' },
+        { id: 'pregunta17', texto: 'parabrisas y limpiaparabrisas' },
+        { id: 'pregunta18', texto: 'sistema de ventilación/calefacción' },
+        { id: 'pregunta19', texto: 'tacógrafo' },
+        { id: 'pregunta20', texto: 'documentación del vehículo' },
+        { id: 'pregunta21', texto: 'sistema de protección contra incendios' },
+        { id: 'pregunta22', texto: 'sistema de captación de polvo' },
+        { id: 'pregunta23', texto: 'sistema de monitoreo continuo de gases' },
+        { id: 'pregunta24', texto: 'estructura de protección contra vuelcos (ROPS)' },
+        { id: 'pregunta25', texto: 'sistema de alerta de retroceso' }
+      ];
+      
+      preguntas.forEach(pregunta => {
+        const valor = document.getElementById(pregunta.id).value;
+        if (valor === "Mal") {
+          alerta += `• ${pregunta.texto}\n`;
+        }
+      });
+      
+      if (alerta === "") {
+        // No hay problemas, no enviar correo
+        event.preventDefault();
+        document.getElementById('successAlert').style.display = 'block';
+        window.scrollTo(0, 0);
+      } else {
+        // Hay problemas, preparar el mensaje de alerta
+        const mensajeAlerta = `PROBLEMAS REPORTADOS EN LA UNIDAD ${unidad}:\n\n${alerta}`;
+        document.getElementById("alerta").value = mensajeAlerta;
+        document.getElementById('successAlert').style.display = 'none';
+        
+        // Aquí podrías enviar el formulario automáticamente
+        // Pero como estamos usando Formspree, se enviará normalmente
+      }
+    });
+  </script>
+</body>
+</html>
