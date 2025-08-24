@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checklist - TFS - Magna IV</title>
+  <title>Checklist Simplificado - Magna IV</title>
   <style>
     :root {
       --color-primary: #003366;
       --color-secondary: #ff6600;
       --color-success: #28a745;
       --color-danger: #dc3545;
-      --color-warning: #ffc107;
       --color-light: #f8f9fa;
       --color-dark: #343a40;
     }
@@ -145,21 +144,6 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
-    .btn-secondary {
-      background-color: #6c757d;
-      color: white;
-    }
-    
-    .btn-secondary:hover {
-      background-color: #5a6268;
-    }
-    
-    .action-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    
     .alert {
       padding: 1rem;
       border-radius: 8px;
@@ -191,16 +175,12 @@
       .form-group {
         flex: 1 0 100%;
       }
-      
-      .action-buttons {
-        flex-direction: column;
-      }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo Magna IV" class="logo">
+    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxrectYWdlIHdpZHRoPSIxNTAiIGhlaWdodD0iNjAiIGZpbGw9IiMwMDMzNjYiLz48dGV4dCB4PSIxNSIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZiI+TUFHTkEgSVY8L3RleHQ+PC9zdmc+" alt="Logo Magna IV" class="logo">
     <h1>Checklist Camionetas - Automatización y Control</h1>
   </header>
 
@@ -243,22 +223,12 @@
             </div>
             
             <div class="form-group">
-              <label for="turno" class="required">Turno:</label>
-              <select id="turno" name="turno" required>
-                <option value="">Seleccionar turno</option>
-                <option value="Día">Día</option>
-                <option value="Noche">Noche</option>
-                <option value="Rotativo">Rotativo</option>
-              </select>
+              <label for="fecha">Fecha:</label>
+              <input type="text" id="fecha" name="fecha" readonly>
             </div>
           </div>
           
           <div class="form-row">
-            <div class="form-group">
-              <label for="fecha">Fecha:</label>
-              <input type="text" id="fecha" name="fecha" readonly>
-            </div>
-            
             <div class="form-group">
               <label for="hora">Hora:</label>
               <input type="text" id="hora" name="hora" readonly>
@@ -290,27 +260,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta3" class="required">3. ¿El sistema de detección de gases (CO, NO2) funciona correctamente?</label>
-            <select id="pregunta3" name="pregunta3" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta4" class="required">4. ¿El equipo de respiración autónoma (ERA) está completo y en buen estado?</label>
-            <select id="pregunta4" name="pregunta4" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta5" class="required">5. ¿El botiquín de primeros auxilios está completo y vigente?</label>
+            <label for="pregunta5" class="required">3. ¿El botiquín de primeros auxilios está completo y vigente?</label>
             <select id="pregunta5" name="pregunta5" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -319,30 +269,10 @@
             </select>
           </div>
           
-          <div class="question-item">
-            <label for="pregunta6" class="required">6. ¿El sistema de comunicación (radio) funciona correctamente?</label>
-            <select id="pregunta6" name="pregunta6" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
+          <h3 class="category-title">SISTEMA MECÁNICO Y ELÉCTRICO</h3>
           
           <div class="question-item">
-            <label for="pregunta7" class="required">7. ¿El balizamiento y sistema de luces de emergencia funciona correctamente?</label>
-            <select id="pregunta7" name="pregunta7" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <h3 class="category-title">SISTEMA MECÁNICO AND ELÉCTRICO</h3>
-          
-          <div class="question-item">
-            <label for="pregunta8" class="required">8. ¿Los neumáticos tienen la presión adecuada y sin daños visibles?</label>
+            <label for="pregunta8" class="required">4. ¿Los neumáticos tienen la presión adecuada y sin daños visibles?</label>
             <select id="pregunta8" name="pregunta8" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -352,7 +282,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta9" class="required">9. ¿Funcionan correctamente todas las luces (bajas, altas, intermitentes, freno)?</label>
+            <label for="pregunta9" class="required">5. ¿Funcionan correctamente todas las luces (bajas, altas, intermitentes, freno)?</label>
             <select id="pregunta9" name="pregunta9" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -362,17 +292,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta10" class="required">10. ¿Los frenos responden adecuadamente (freno de servicio y estacionamiento)?</label>
-            <select id="pregunta10" name="pregunta10" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta11" class="required">11. ¿El sistema de dirección funciona correctamente?</label>
+            <label for="pregunta11" class="required">6. ¿El sistema de dirección funciona correctamente?</label>
             <select id="pregunta11" name="pregunta11" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -382,28 +302,8 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta12" class="required">12. ¿Niveles de fluidos (aceite motor, frenos, dirección, refrigerante) correctos?</label>
-            <select id="pregunta12" name="pregunta12" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta13" class="required">13. ¿La batería presenta corrosión en bornes y está bien sujeta?</label>
-            <select id="pregunta13" name="pregunta13" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta14" class="required">14. ¿El sistema de escape no presenta fugas ni ruidos anormales?</label>
-            <select id="pregunta14" name="pregunta14" required>
+            <label for="pregunta25" class="required">7. ¿El sistema de alerta de retroceso funciona correctamente?</label>
+            <select id="pregunta25" name="pregunta25" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
               <option value="Mal">Mal</option>
@@ -414,7 +314,7 @@
           <h3 class="category-title">ELEMENTOS DE PROTECCIÓN PERSONAL Y SEGURIDAD</h3>
           
           <div class="question-item">
-            <label for="pregunta15" class="required">15. ¿El cinturón de seguridad funciona correctamente?</label>
+            <label for="pregunta15" class="required">8. ¿El cinturón de seguridad funciona correctamente?</label>
             <select id="pregunta15" name="pregunta15" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -424,7 +324,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta16" class="required">16. ¿Los espejos retrovisores están en buen estado y bien ajustados?</label>
+            <label for="pregunta16" class="required">9. ¿Los espejos retrovisores están en buen estado y bien ajustados?</label>
             <select id="pregunta16" name="pregunta16" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -434,7 +334,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta17" class="required">17. ¿El parabrisas y limpiaparabrisas están en buen estado?</label>
+            <label for="pregunta17" class="required">10. ¿El parabrisas y limpiaparabrisas están en buen estado?</label>
             <select id="pregunta17" name="pregunta17" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -444,7 +344,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta18" class="required">18. ¿El sistema de ventilación/calefacción funciona correctamente?</label>
+            <label for="pregunta18" class="required">11. ¿El sistema de ventilación/calefacción funciona correctamente?</label>
             <select id="pregunta18" name="pregunta18" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -454,7 +354,7 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta19" class="required">19. ¿El tacógrafo (si aplica) funciona correctamente?</label>
+            <label for="pregunta19" class="required">12. ¿El tacógrafo (si aplica) funciona correctamente?</label>
             <select id="pregunta19" name="pregunta19" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
@@ -464,60 +364,8 @@
           </div>
           
           <div class="question-item">
-            <label for="pregunta20" class="required">20. ¿La documentación del vehículo está en regla (seguro, revisión técnica, permiso de circulación)?</label>
+            <label for="pregunta20" class="required">13. ¿La documentación del vehículo está en regla (seguro, revisión técnica, permiso de circulación)?</label>
             <select id="pregunta20" name="pregunta20" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <h3 class="category-title">EQUIPAMIENTO ESPECÍFICO MINERÍA SUBTERRÁNEA</h3>
-          
-          <div class="question-item">
-            <label for="pregunta21" class="required">21. ¿El sistema de protección contra incendios (si existe) está operativo?</label>
-            <select id="pregunta21" name="pregunta21" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta22" class="required">22. ¿El sistema de captación de polvo (si aplica) funciona correctamente?</label>
-            <select id="pregunta22" name="pregunta22" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta23" class="required">23. ¿El sistema de monitoreo continuo de gases está calibrado y funcionando?</label>
-            <select id="pregunta23" name="pregunta23" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta24" class="required">24. ¿La estructura de protección contra vuelcos (ROPS) está en buen estado?</label>
-            <select id="pregunta24" name="pregunta24" required>
-              <option value="">Seleccionar</option>
-              <option value="Bien">Bien</option>
-              <option value="Mal">Mal</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-          
-          <div class="question-item">
-            <label for="pregunta25" class="required">25. ¿El sistema de alerta de retroceso funciona correctamente?</label>
-            <select id="pregunta25" name="pregunta25" required>
               <option value="">Seleccionar</option>
               <option value="Bien">Bien</option>
               <option value="Mal">Mal</option>
@@ -537,7 +385,6 @@
         
         <div class="action-buttons">
           <button type="submit" class="btn btn-primary">Enviar Checklist</button>
-          <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
         </div>
       </div>
     </form>
@@ -635,7 +482,6 @@
       const proyecto = document.getElementById("proyecto").value;
       const usuario = document.getElementById("usuario").value;
       const unidad = document.getElementById("unidad").value;
-      const turno = document.getElementById("turno").value;
       const fecha = document.getElementById("fecha").value;
       const hora = document.getElementById("hora").value;
       const observaciones = document.getElementById("observaciones").value;
@@ -644,7 +490,6 @@
       const infoGeneralTexto = `Checklist completado por: ${usuario}
 Proyecto: ${proyecto}
 Unidad: ${unidad}
-Turno: ${turno}
 Fecha: ${fecha}
 Hora: ${hora}
 Observaciones: ${observaciones || 'Ninguna'}`;
@@ -654,33 +499,21 @@ Observaciones: ${observaciones || 'Ninguna'}`;
       // Verificar si hay problemas reportados
       let alerta = "";
       
-      // Preguntas a verificar
+      // Preguntas a verificar (solo las que quedaron)
       const preguntas = [
         { id: 'pregunta1', texto: 'sensor de somnolencia' },
         { id: 'pregunta2', texto: 'extintor' },
-        { id: 'pregunta3', texto: 'sistema de detección de gases' },
-        { id: 'pregunta4', texto: 'equipo de respiración autónoma (ERA)' },
         { id: 'pregunta5', texto: 'botiquín de primeros auxilios' },
-        { id: 'pregunta6', texto: 'sistema de comunicación (radio)' },
-        { id: 'pregunta7', texto: 'balizamiento y sistema de luces de emergencia' },
         { id: 'pregunta8', texto: 'neumáticos' },
         { id: 'pregunta9', texto: 'luces' },
-        { id: 'pregunta10', texto: 'frenos' },
         { id: 'pregunta11', texto: 'sistema de dirección' },
-        { id: 'pregunta12', texto: 'niveles de fluidos' },
-        { id: 'pregunta13', texto: 'batería' },
-        { id: 'pregunta14', texto: 'sistema de escape' },
+        { id: 'pregunta25', texto: 'sistema de alerta de retroceso' },
         { id: 'pregunta15', texto: 'cinturón de seguridad' },
         { id: 'pregunta16', texto: 'espejos retrovisores' },
         { id: 'pregunta17', texto: 'parabrisas y limpiaparabrisas' },
         { id: 'pregunta18', texto: 'sistema de ventilación/calefacción' },
         { id: 'pregunta19', texto: 'tacógrafo' },
-        { id: 'pregunta20', texto: 'documentación del vehículo' },
-        { id: 'pregunta21', texto: 'sistema de protección contra incendios' },
-        { id: 'pregunta22', texto: 'sistema de captación de polvo' },
-        { id: 'pregunta23', texto: 'sistema de monitoreo continuo de gases' },
-        { id: 'pregunta24', texto: 'estructura de protección contra vuelcos (ROPS)' },
-        { id: 'pregunta25', texto: 'sistema de alerta de retroceso' }
+        { id: 'pregunta20', texto: 'documentación del vehículo' }
       ];
       
       preguntas.forEach(pregunta => {
@@ -701,8 +534,14 @@ Observaciones: ${observaciones || 'Ninguna'}`;
         document.getElementById("alerta").value = mensajeAlerta;
         document.getElementById('successAlert').style.display = 'none';
         
-        // Aquí podrías enviar el formulario automáticamente
-        // Pero como estamos usando Formspree, se enviará normalmente
+        // Enviar solo información de problemas, no respuestas "Bien"
+        // Eliminar campos de preguntas con respuestas "Bien" para que no se envíen
+        preguntas.forEach(pregunta => {
+          const campo = document.getElementById(pregunta.id);
+          if (campo.value === "Bien" || campo.value === "N/A") {
+            campo.disabled = true; // Deshabilitar campos para que no se envíen
+          }
+        });
       }
     });
   </script>
